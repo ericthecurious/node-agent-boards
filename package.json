@@ -1,7 +1,10 @@
 {
   "name": "@ericthecurious/board-of-transformers",
-  "version": "0.0.1",
-  "repository": "https://github.com/ericthecurious/board-of-transformers.git",
+  "version": "0.0.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericthecurious/board-of-transformers.git"
+  },
   "scripts": {
     "build.ci": "yarn run build.tsc && yarn run build.resolve-paths && yarn run lint",
     "build.dev": "yarn run build.tsc --sourceMap ; yarn run resolve-paths.lint",
