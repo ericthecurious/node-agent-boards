@@ -5,8 +5,8 @@ import AbstractSpruceTest, {
 } from '@sprucelabs/test-utils'
 import GenerativeClient from '../../GenerativeClient'
 import PersonaImpl, { PersonaOptions } from '../../Persona'
-import FakeGenerativeClient from './FakeGenerativeClient'
-import SpyPersona from './SpyPersona'
+import FakeGenerativeClient from '../support/FakeGenerativeClient'
+import SpyPersona from '../support/SpyPersona'
 
 export default class PersonaTest extends AbstractSpruceTest {
     private static persona: SpyPersona
