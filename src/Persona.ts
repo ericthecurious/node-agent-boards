@@ -1,25 +1,28 @@
 import GenerativeClientImpl, { GenerativeClient } from './GenerativeClient'
 
 export default class PersonaImpl implements Persona {
-    public static Class?: new () => Persona
+    public static Class?: new (options: PersonaOptions) => Persona
 
     public name?: string
     protected client?: GenerativeClient
 
-    protected constructor(name?: string) {
+    protected constructor(options: PersonaOptions) {
+        const { name, client } = options ?? {}
+
         this.name = name
-        this.client = this.Client()
+        this.client = client
     }
 
     public static Create(name?: string) {
-        return new (this.Class ?? this)(name)
+        const client = this.Client()
+        return new (this.Class ?? this)({ name, client })
     }
 
     public generate(_prompt: string) {
         return ''
     }
 
-    private Client() {
+    private static Client() {
         return GenerativeClientImpl.Create()
     }
 }
@@ -27,4 +30,9 @@ export default class PersonaImpl implements Persona {
 export interface Persona {
     name?: string
     generate(prompt: string): string
+}
+
+export interface PersonaOptions {
+    client: GenerativeClient
+    name?: string
 }

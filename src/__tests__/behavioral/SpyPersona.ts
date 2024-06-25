@@ -1,8 +1,8 @@
-import PersonaImpl from '../../Persona'
+import PersonaImpl, { PersonaOptions } from '../../Persona'
 
 export default class SpyPersona extends PersonaImpl {
-    public constructor(name?: string) {
-        super(name)
+    public constructor(options: PersonaOptions) {
+        super(options)
     }
 
     public getClient() {

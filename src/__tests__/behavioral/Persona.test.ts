@@ -4,7 +4,7 @@ import AbstractSpruceTest, {
     generateId,
 } from '@sprucelabs/test-utils'
 import GenerativeClient from '../../GenerativeClient'
-import PersonaImpl from '../../Persona'
+import PersonaImpl, { PersonaOptions } from '../../Persona'
 import FakeGenerativeClient from './FakeGenerativeClient'
 import SpyPersona from './SpyPersona'
 
@@ -40,6 +40,13 @@ export default class PersonaTest extends AbstractSpruceTest {
             true,
             'Client was not instantiated!'
         )
+    }
+
+    @test()
+    protected static async constructorDoesNotInstantiateClient() {
+        const persona = new SpyPersona({} as PersonaOptions)
+        const client = persona.getClient()
+        assert.isUndefined(client, 'Client should be undefined!')
     }
 
     @test()
