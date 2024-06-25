@@ -36,10 +36,10 @@ export default class PersonaImpl implements Persona {
 }
 
 export interface Persona {
+    generate(prompt: string): string
     name?: string
     context?: string
     corpus?: string[]
-    generate(prompt: string): string
 }
 
 export interface PersonaOptions {
