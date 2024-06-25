@@ -3,8 +3,8 @@ import GenerativeClientImpl, { GenerativeClient } from './GenerativeClient'
 export default class PersonaImpl implements Persona {
     public static Class?: new (options: PersonaOptions) => Persona
 
-    public name?: string
-    public context?: string
+    public readonly name?: string
+    public readonly context?: string
     protected client: GenerativeClient
 
     protected constructor(options: PersonaOptions) {
