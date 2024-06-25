@@ -64,6 +64,13 @@ export default class PersonaTest extends AbstractSpruceTest {
     }
 
     @test()
+    protected static async staticCreationMethodAcceptsOptionalCorpus() {
+        const corpus = [generateId()]
+        const persona = this.Persona({ corpus })
+        assert.isEqualDeep(persona.corpus, corpus)
+    }
+
+    @test()
     protected static async generateAcceptsAndReturnsTypeString() {
         const prompt = generateId()
         const result = this.persona.generate(prompt)
