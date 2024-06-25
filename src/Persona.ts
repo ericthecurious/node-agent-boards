@@ -4,18 +4,20 @@ export default class PersonaImpl implements Persona {
     public static Class?: new (options: PersonaOptions) => Persona
 
     public name?: string
+    public context?: string
     protected client: GenerativeClient
 
     protected constructor(options: PersonaOptions) {
-        const { name, client } = options ?? {}
+        const { client, name, context } = options ?? {}
 
-        this.name = name
         this.client = client
+        this.name = name
+        this.context = context
     }
 
     public static Create(options?: Partial<PersonaOptions>) {
-        const { name, client = this.Client() } = options ?? {}
-        return new (this.Class ?? this)({ name, client })
+        const { client = this.Client(), name, context } = options ?? {}
+        return new (this.Class ?? this)({ client, name, context })
     }
 
     public generate(prompt: string) {
@@ -29,10 +31,12 @@ export default class PersonaImpl implements Persona {
 
 export interface Persona {
     name?: string
+    context?: string
     generate(prompt: string): string
 }
 
 export interface PersonaOptions {
     client: GenerativeClient
     name?: string
+    context?: string
 }
