@@ -18,8 +18,8 @@ export default class PersonaImpl implements Persona {
         return new (this.Class ?? this)({ name, client })
     }
 
-    public generate(_prompt: string) {
-        return ''
+    public generate(prompt: string) {
+        return this.client.generate(prompt)
     }
 
     private static Client() {

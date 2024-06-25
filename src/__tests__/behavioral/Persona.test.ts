@@ -63,6 +63,13 @@ export default class PersonaTest extends AbstractSpruceTest {
         assert.isString(result)
     }
 
+    @test()
+    protected static async generateMethodCallsClientGenerate() {
+        const prompt = generateId()
+        this.persona.generate(prompt)
+        assert.isEqualDeep(this.fakedClient.generateCalls, [prompt])
+    }
+
     private static get fakedClient() {
         return this.persona.getClient() as FakeGenerativeClient
     }
