@@ -21,7 +21,11 @@ export default class PersonaImpl implements Persona {
     }
 
     public generate(prompt: string) {
-        return this.client.generate(prompt)
+        const contextPrompt = this.context
+            ? `${this.context} ${prompt}`
+            : prompt
+
+        return this.client.generate(contextPrompt)
     }
 
     private static Client() {
