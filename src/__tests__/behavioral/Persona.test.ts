@@ -3,13 +3,20 @@ import AbstractSpruceTest, {
     assert,
     generateId,
 } from '@sprucelabs/test-utils'
-import PersonaImpl, { Persona } from '../../Persona'
+import GenerativeClient from '../../GenerativeClient'
+import PersonaImpl from '../../Persona'
+import FakeGenerativeClient from './FakeGenerativeClient'
+import SpyPersona from './SpyPersona'
 
 export default class PersonaTest extends AbstractSpruceTest {
-    private static persona: Persona
+    private static persona: SpyPersona
 
     protected static async beforeEach() {
         await super.beforeEach()
+
+        PersonaImpl.Class = SpyPersona
+        GenerativeClient.Class = FakeGenerativeClient
+
         this.persona = this.Persona()
     }
 
@@ -26,13 +33,27 @@ export default class PersonaTest extends AbstractSpruceTest {
     }
 
     @test()
+    protected static async instantiatesGenerativeClient() {
+        assert.isTruthy(this.fakedClient, 'Client is not truthy!')
+        assert.isEqual(
+            this.fakedClient.wasInstantiated,
+            true,
+            'Client was not instantiated!'
+        )
+    }
+
+    @test()
     protected static async generateAcceptsAndReturnsTypeString() {
         const prompt = generateId()
         const result = this.persona.generate(prompt)
         assert.isString(result)
     }
 
+    private static get fakedClient() {
+        return this.persona.getClient() as FakeGenerativeClient
+    }
+
     private static Persona(name?: string) {
-        return PersonaImpl.Create(name)
+        return PersonaImpl.Create(name) as SpyPersona
     }
 }
