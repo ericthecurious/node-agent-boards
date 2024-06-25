@@ -23,11 +23,12 @@ export default class PersonaImpl implements Persona {
     }
 
     public generate(prompt: string) {
-        const contextPrompt = this.context
-            ? `${this.context} ${prompt}`
-            : prompt
-
+        const contextPrompt = this.addContextToPrompt(prompt)
         return this.client.generate(contextPrompt)
+    }
+
+    private addContextToPrompt(prompt: string) {
+        return this.context ? `${this.context} ${prompt}` : prompt
     }
 
     private static Client() {
