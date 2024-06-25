@@ -28,7 +28,7 @@ export default class PersonaTest extends AbstractSpruceTest {
     @test()
     protected static async staticCreationMethodAcceptsName() {
         const name = generateId()
-        const persona = this.Persona(name)
+        const persona = this.Persona({ name })
         assert.isEqual(persona.name, name)
     }
 
@@ -50,6 +50,13 @@ export default class PersonaTest extends AbstractSpruceTest {
     }
 
     @test()
+    protected static async staticCreationMethodAcceptsOptionalClient() {
+        const client = new FakeGenerativeClient()
+        const persona = this.Persona({ client })
+        assert.isEqualDeep(persona.getClient(), client)
+    }
+
+    @test()
     protected static async generateAcceptsAndReturnsTypeString() {
         const prompt = generateId()
         const result = this.persona.generate(prompt)
@@ -60,7 +67,7 @@ export default class PersonaTest extends AbstractSpruceTest {
         return this.persona.getClient() as FakeGenerativeClient
     }
 
-    private static Persona(name?: string) {
-        return PersonaImpl.Create(name) as SpyPersona
+    private static Persona(options?: Partial<PersonaOptions>) {
+        return PersonaImpl.Create(options) as SpyPersona
     }
 }

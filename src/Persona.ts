@@ -4,7 +4,7 @@ export default class PersonaImpl implements Persona {
     public static Class?: new (options: PersonaOptions) => Persona
 
     public name?: string
-    protected client?: GenerativeClient
+    protected client: GenerativeClient
 
     protected constructor(options: PersonaOptions) {
         const { name, client } = options ?? {}
@@ -13,8 +13,8 @@ export default class PersonaImpl implements Persona {
         this.client = client
     }
 
-    public static Create(name?: string) {
-        const client = this.Client()
+    public static Create(options?: Partial<PersonaOptions>) {
+        const { name, client = this.Client() } = options ?? {}
         return new (this.Class ?? this)({ name, client })
     }
 
