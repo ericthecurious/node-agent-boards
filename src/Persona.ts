@@ -10,8 +10,13 @@ export default class PersonaImpl implements Persona {
     public static Create(name?: string): Persona {
         return new (this.Class ?? this)(name)
     }
+
+    public generate(_prompt: string) {
+        return ''
+    }
 }
 
 export interface Persona {
     name?: string
+    generate(prompt: string): string
 }
