@@ -6,6 +6,7 @@ export default class PersonaImpl implements Persona {
     public readonly name?: string
     public readonly context?: string
     public readonly corpus?: string[]
+    public readonly sessionHistory: string[]
     protected client: GenerativeClient
 
     protected constructor(options: PersonaOptions) {
@@ -15,6 +16,7 @@ export default class PersonaImpl implements Persona {
         this.name = name
         this.context = context
         this.corpus = corpus
+        this.sessionHistory = []
     }
 
     public static Create(options?: Partial<PersonaOptions>) {
