@@ -28,7 +28,7 @@ export default class PersonaImpl implements Persona {
         const contextPrompt = this.addContextToPrompt(prompt)
         const response = this.client.generate(contextPrompt)
 
-        this.sessionHistory.push({ prompt, response })
+        this.sessionHistory.push({ prompt: contextPrompt, response })
 
         return response
     }
