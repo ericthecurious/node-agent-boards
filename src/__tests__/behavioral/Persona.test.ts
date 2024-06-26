@@ -102,6 +102,18 @@ export default class PersonaTest extends AbstractSpruceTest {
         assert.isEqualDeep(this.persona.sessionHistory, [])
     }
 
+    @test()
+    protected static async savesOneInteractionToSessionHistory() {
+        const prompt = generateId()
+        const response = this.persona.generate(prompt)
+
+        assert.isLength(this.persona.sessionHistory, 1)
+        assert.isEqualDeep(this.persona.sessionHistory[0], {
+            prompt,
+            response,
+        })
+    }
+
     private static get fakedClient() {
         return this.persona.getClient() as FakeGenerativeClient
     }

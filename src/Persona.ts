@@ -6,7 +6,7 @@ export default class PersonaImpl implements Persona {
     public readonly name?: string
     public readonly context?: string
     public readonly corpus?: string[]
-    public readonly sessionHistory: string[]
+    public readonly sessionHistory: SessionInteraction[]
     protected client: GenerativeClient
 
     protected constructor(options: PersonaOptions) {
@@ -26,7 +26,11 @@ export default class PersonaImpl implements Persona {
 
     public generate(prompt: string) {
         const contextPrompt = this.addContextToPrompt(prompt)
-        return this.client.generate(contextPrompt)
+        const response = this.client.generate(contextPrompt)
+
+        this.sessionHistory.push({ prompt, response })
+
+        return response
     }
 
     private addContextToPrompt(prompt: string) {
@@ -50,4 +54,9 @@ export interface PersonaOptions {
     name?: string
     context?: string
     corpus?: string[]
+}
+
+export interface SessionInteraction {
+    prompt: string
+    response: string
 }
