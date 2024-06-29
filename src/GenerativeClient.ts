@@ -1,7 +1,7 @@
 import { assertOptions } from '@sprucelabs/schema'
 
 export default class GenerativeClientImpl implements GenerativeClient {
-    public static Class?: new () => GenerativeClient
+    public static Class?: GenerativeClientConstructor
 
     protected constructor(options: GenerativeClientOptions) {
         assertOptions(options, ['clientUrl', 'apiKey'])
@@ -24,3 +24,7 @@ export interface GenerativeClientOptions {
     clientUrl: string
     apiKey: string
 }
+
+export type GenerativeClientConstructor = new (
+    options: GenerativeClientOptions
+) => GenerativeClient
