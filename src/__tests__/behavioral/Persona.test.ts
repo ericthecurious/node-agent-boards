@@ -99,7 +99,7 @@ export default class PersonaTest extends AbstractSpruceTest {
 
     @test()
     protected static async initializesSessionHistory() {
-        assert.isEqualDeep(this.persona.sessionHistory, [])
+        assert.isEqualDeep(this.persona.history, [])
     }
 
     @test()
@@ -107,8 +107,8 @@ export default class PersonaTest extends AbstractSpruceTest {
         const prompt = generateId()
         const response = this.persona.generate(prompt)
 
-        assert.isLength(this.persona.sessionHistory, 1)
-        assert.isEqualDeep(this.persona.sessionHistory[0], {
+        assert.isLength(this.persona.history, 1)
+        assert.isEqualDeep(this.persona.history[0], {
             prompt,
             response,
         })
@@ -122,12 +122,12 @@ export default class PersonaTest extends AbstractSpruceTest {
         const response1 = this.persona.generate(prompt1)
         const response2 = this.persona.generate(prompt2)
 
-        assert.isLength(this.persona.sessionHistory, 2)
-        assert.isEqualDeep(this.persona.sessionHistory[0], {
+        assert.isLength(this.persona.history, 2)
+        assert.isEqualDeep(this.persona.history[0], {
             prompt: prompt1,
             response: response1,
         })
-        assert.isEqualDeep(this.persona.sessionHistory[1], {
+        assert.isEqualDeep(this.persona.history[1], {
             prompt: prompt2,
             response: response2,
         })
@@ -143,7 +143,7 @@ export default class PersonaTest extends AbstractSpruceTest {
         const persona = this.Persona({ context })
         const response = persona.generate(prompt)
 
-        assert.isEqualDeep(persona.sessionHistory[0], {
+        assert.isEqualDeep(persona.history[0], {
             prompt: contextPrompt,
             response,
         })

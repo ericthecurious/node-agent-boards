@@ -6,7 +6,7 @@ export default class PersonaImpl implements Persona {
     public readonly name?: string
     public readonly context?: string
     public readonly corpus?: string[]
-    public readonly sessionHistory: SessionInteraction[]
+    public readonly history: SessionInteraction[]
     protected client: GenerativeClient
 
     protected constructor(options: PersonaOptions) {
@@ -16,7 +16,7 @@ export default class PersonaImpl implements Persona {
         this.name = name
         this.context = context
         this.corpus = corpus
-        this.sessionHistory = []
+        this.history = []
     }
 
     public static Create(options?: Partial<PersonaOptions>) {
@@ -28,7 +28,7 @@ export default class PersonaImpl implements Persona {
         const contextPrompt = this.addContextToPrompt(prompt)
         const response = this.client.generate(contextPrompt)
 
-        this.sessionHistory.push({ prompt: contextPrompt, response })
+        this.history.push({ prompt: contextPrompt, response })
 
         return response
     }
