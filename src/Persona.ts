@@ -38,7 +38,10 @@ export default class PersonaImpl implements Persona {
     }
 
     private static Client() {
-        return GenerativeClientImpl.Create()
+        return GenerativeClientImpl.Create({
+            clientUrl: 'abcd',
+            apiKey: '1234',
+        })
     }
 }
 

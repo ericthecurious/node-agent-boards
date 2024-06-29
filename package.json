@@ -1,6 +1,6 @@
 {
   "name": "@ericthecurious/board-of-transformers",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ericthecurious/board-of-transformers.git"
@@ -64,5 +64,8 @@
     "moduleNameMapper": {
       "^#spruce/(.*)$": "<rootDir>/build/.spruce/$1"
     }
+  },
+  "dependencies": {
+    "@sprucelabs/schema": "^30.0.128"
   }
 }
