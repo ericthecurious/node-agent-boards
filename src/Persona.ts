@@ -24,7 +24,7 @@ export default class PersonaImpl implements Persona {
         return new (this.Class ?? this)({ client, name, context, corpus })
     }
 
-    public generate(prompt: string) {
+    public async generate(prompt: string) {
         const contextPrompt = this.addContextToPrompt(prompt)
         const response = this.client.generate(contextPrompt)
 
@@ -46,7 +46,7 @@ export default class PersonaImpl implements Persona {
 }
 
 export interface Persona {
-    generate(prompt: string): string
+    generate(prompt: string): Promise<string>
     name?: string
     context?: string
     corpus?: string[]

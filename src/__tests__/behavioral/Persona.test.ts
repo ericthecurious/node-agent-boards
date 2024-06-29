@@ -73,14 +73,14 @@ export default class PersonaTest extends AbstractSpruceTest {
     @test()
     protected static async generateAcceptsAndReturnsTypeString() {
         const prompt = generateId()
-        const result = this.persona.generate(prompt)
+        const result = await this.persona.generate(prompt)
         assert.isString(result)
     }
 
     @test()
     protected static async generateOnPersonaCallsGenerateOnClient() {
         const prompt = generateId()
-        this.persona.generate(prompt)
+        await this.persona.generate(prompt)
         assert.isEqualDeep(this.fakedClient.generateCalls, [prompt])
     }
 
@@ -92,7 +92,7 @@ export default class PersonaTest extends AbstractSpruceTest {
         const persona = this.Persona({ context })
         const fakedClient = persona.getClient() as FakeGenerativeClient
 
-        persona.generate(prompt)
+        await persona.generate(prompt)
 
         assert.isEqualDeep(fakedClient.generateCalls, [`${context} ${prompt}`])
     }
@@ -105,7 +105,7 @@ export default class PersonaTest extends AbstractSpruceTest {
     @test()
     protected static async savesOneInteractionToSessionHistory() {
         const prompt = generateId()
-        const response = this.persona.generate(prompt)
+        const response = await this.persona.generate(prompt)
 
         assert.isLength(this.persona.history, 1)
         assert.isEqualDeep(this.persona.history[0], {
@@ -119,8 +119,8 @@ export default class PersonaTest extends AbstractSpruceTest {
         const prompt1 = generateId()
         const prompt2 = generateId()
 
-        const response1 = this.persona.generate(prompt1)
-        const response2 = this.persona.generate(prompt2)
+        const response1 = await this.persona.generate(prompt1)
+        const response2 = await this.persona.generate(prompt2)
 
         assert.isLength(this.persona.history, 2)
         assert.isEqualDeep(this.persona.history[0], {
@@ -141,7 +141,7 @@ export default class PersonaTest extends AbstractSpruceTest {
         const contextPrompt = `${context} ${prompt}`
 
         const persona = this.Persona({ context })
-        const response = persona.generate(prompt)
+        const response = await persona.generate(prompt)
 
         assert.isEqualDeep(persona.history[0], {
             prompt: contextPrompt,
