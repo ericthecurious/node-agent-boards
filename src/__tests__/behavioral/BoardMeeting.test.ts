@@ -4,12 +4,16 @@ import AbstractSpruceTest, {
     errorAssert,
 } from '@sprucelabs/test-utils'
 import BoardMeetingImpl, { BoardMeeting } from '../../BoardMeeting'
+import PersonaImpl from '../../Persona'
+import FakePersona from '../support/FakePersona'
 
 export default class BoardMeetingTest extends AbstractSpruceTest {
     private static instance: BoardMeeting
 
     protected static async beforeEach() {
         await super.beforeEach()
+
+        PersonaImpl.Class = FakePersona
 
         this.instance = this.BoardMeeting()
     }
