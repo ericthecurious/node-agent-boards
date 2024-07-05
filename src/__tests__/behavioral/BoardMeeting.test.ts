@@ -3,13 +3,20 @@ import AbstractSpruceTest, {
     assert,
     errorAssert,
 } from '@sprucelabs/test-utils'
-import BoardMeetingImpl from '../../BoardMeeting'
+import BoardMeetingImpl, { BoardMeeting } from '../../BoardMeeting'
 
 export default class BoardMeetingTest extends AbstractSpruceTest {
+    private static instance: BoardMeeting
+
+    protected static async beforeEach() {
+        await super.beforeEach()
+
+        this.instance = this.BoardMeeting()
+    }
+
     @test()
     protected static async canCreateBoardMeeting() {
-        const instance = this.BoardMeeting()
-        assert.isTruthy(instance)
+        assert.isTruthy(this.instance)
     }
 
     @test()
