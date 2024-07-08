@@ -68,7 +68,7 @@ export default class BoardMeetingTest extends AbstractSpruceTest {
     }
 
     private static FakePersona() {
-        return PersonaImpl.Create() as any
+        return PersonaImpl.Create() as FakePersona
     }
 
     private static BoardMeeting(options?: Partial<BoardMeetingOptions>) {

@@ -1,5 +1,5 @@
 import { assertOptions } from '@sprucelabs/schema'
-import Persona from './Persona'
+import { Persona } from './Persona'
 
 export default class BoardMeetingImpl implements BoardMeeting {
     public static Class?: BoardMeetingConstructor
