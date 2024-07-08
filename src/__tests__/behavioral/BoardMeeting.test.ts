@@ -2,6 +2,7 @@ import AbstractSpruceTest, {
     test,
     assert,
     errorAssert,
+    generateId,
 } from '@sprucelabs/test-utils'
 import BoardMeetingImpl, { BoardMeetingOptions } from '../../BoardMeeting'
 import PersonaImpl from '../../Persona'
@@ -47,7 +48,7 @@ export default class BoardMeetingTest extends AbstractSpruceTest {
 
     @test()
     protected static async acceptsOptionalPrompt() {
-        const prompt = 'optional prompt'
+        const prompt = generateId()
 
         const instance = this.BoardMeeting({
             prompt,
