@@ -5,11 +5,13 @@ export default class BoardMeetingImpl implements BoardMeeting {
     public static Class?: BoardMeetingConstructor
 
     protected personas: Persona[]
+    private prompt: string
 
     protected constructor(options: BoardMeetingConstructorOptions) {
         const { personas } = options
 
         this.personas = personas
+        this.prompt = 'fake prompt'
     }
 
     public static Create(options: BoardMeetingOptions) {
@@ -19,7 +21,7 @@ export default class BoardMeetingImpl implements BoardMeeting {
 
     public async commence() {
         await Promise.all(
-            this.personas.map((persona) => persona.generate('fake prompt'))
+            this.personas.map((persona) => persona.generate(this.prompt))
         )
     }
 }
