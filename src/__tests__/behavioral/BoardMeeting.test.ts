@@ -3,7 +3,7 @@ import AbstractSpruceTest, {
     assert,
     errorAssert,
 } from '@sprucelabs/test-utils'
-import BoardMeetingImpl from '../../BoardMeeting'
+import BoardMeetingImpl, { BoardMeetingOptions } from '../../BoardMeeting'
 import PersonaImpl from '../../Persona'
 import FakePersona from '../support/FakePersona'
 import SpyBoardMeeting from '../support/SpyBoardMeeting'
@@ -38,20 +38,42 @@ export default class BoardMeetingTest extends AbstractSpruceTest {
     protected static async commenceCallsGenerateOnPersonas() {
         await this.instance.commence()
 
-        const fakes = this.instance.getPersonas() as unknown as FakePersona[]
+        const fakes = this.getFakesFrom(this.instance)
 
         fakes.forEach((fake) => {
             assert.isEqual(fake.numGenerateCalls, 1)
         })
     }
 
-    private static BoardMeeting() {
-        return BoardMeetingImpl.Create({
-            personas: [this.FakePersona(), this.FakePersona()],
-        }) as SpyBoardMeeting
+    @test()
+    protected static async acceptsOptionalPrompt() {
+        const prompt = 'optional prompt'
+
+        const instance = this.BoardMeeting({
+            prompt,
+        })
+
+        await instance.commence()
+
+        const fakes = this.getFakesFrom(instance)
+
+        fakes.forEach((fake) => {
+            assert.isEqual(fake.lastGenerateCall, prompt)
+        })
+    }
+
+    private static getFakesFrom(instance: SpyBoardMeeting) {
+        return instance.getPersonas() as unknown as FakePersona[]
     }
 
     private static FakePersona() {
         return PersonaImpl.Create() as any
+    }
+
+    private static BoardMeeting(options?: Partial<BoardMeetingOptions>) {
+        return BoardMeetingImpl.Create({
+            personas: [this.FakePersona(), this.FakePersona()],
+            ...options,
+        }) as SpyBoardMeeting
     }
 }

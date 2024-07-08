@@ -8,15 +8,15 @@ export default class BoardMeetingImpl implements BoardMeeting {
     private prompt: string
 
     protected constructor(options: BoardMeetingConstructorOptions) {
-        const { personas } = options
+        const { personas, prompt = 'fake prompt' } = options
 
         this.personas = personas
-        this.prompt = 'fake prompt'
+        this.prompt = prompt
     }
 
     public static Create(options: BoardMeetingOptions) {
-        const { personas } = assertOptions(options, ['personas'])
-        return new (this.Class ?? this)({ personas })
+        const { personas, prompt } = assertOptions(options, ['personas'])
+        return new (this.Class ?? this)({ personas, prompt })
     }
 
     public async commence() {
@@ -32,10 +32,12 @@ export interface BoardMeeting {
 
 export interface BoardMeetingOptions {
     personas: Persona[]
+    prompt?: string
 }
 
 export interface BoardMeetingConstructorOptions {
     personas: Persona[]
+    prompt?: string
 }
 
 export type BoardMeetingConstructor = new (
