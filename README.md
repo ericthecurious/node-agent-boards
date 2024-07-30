@@ -1,12 +1,12 @@
-# board-of-transformers
+# board-of-agents
 
-Assemble a collection of LLM personas into a board of transformers, like a board of directors.
+A modular system of collaborative LLM agents that each have specific expertise.
 
 ## Installation
 
-`npm install @ericthecurious/board-of-transformers`
+`npm install @ericthecurious/board-of-agents`
 
 or 
 
-`yarn add @ericthecurious/board-of-transformers`
+`yarn add @ericthecurious/board-of-agents`
 
