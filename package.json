@@ -1,9 +1,9 @@
 {
-  "name": "@ericthecurious/board-of-transformers",
-  "version": "0.14.0",
+  "name": "@ericthecurious/board-of-agents",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ericthecurious/board-of-transformers.git"
+    "url": "git+https://github.com/ericthecurious/board-of-agents.git"
   },
   "scripts": {
     "build.ci": "yarn run build.tsc && yarn run build.resolve-paths && yarn run lint",
@@ -43,9 +43,9 @@
     "tsc-watch": "^6.2.0",
     "typescript": "^5.4.5"
   },
-  "description": "Assemble a collection of LLM personas into a Board of Transformers",
+  "description": "A modular system of collaborative LLM agents that each have specific expertise",
   "skill": {
-    "namespace": "board-of-transformers"
+    "namespace": "board-of-agents"
   },
   "jest": {
     "testRunner": "jest-circus/runner",
